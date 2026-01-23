@@ -1,0 +1,183 @@
+KIETTISAK CHANHOM, M.Eng.
+Senior Software Engineer | Database Analyst
+Toronto, ON, Canada
+linkedin.com/in/KChanhom
+Tel: +1 (647)-388-6600
+Email: kiettisak.chan@gmail.com
+Career Highlight / Professional Summary
+Accomplished and results-oriented software and data engineer and consultant with over a decade of
+experience delivering scalable software, data, and cloud solutions across enterprise and government
+sectors. Highly proficient in C#, .NET, Python, and modern cloud-based platforms, with extensive expertise
+in Kubernetes-based systems, ETL pipelines, and database technologies. Experienced in developing
+resilient monitoring and incident-management frameworks using Grafana, Splunk, DataDog, New Relic,
+ServiceNow, and PagerDuty. Proficient in transforming complex datasets into actionable insights through
+Power BI, Tableau, Python, and advanced automation.
+● Programming, Development, and Frameworks:
+o Languages: C#, .NET, Python, Scala, Smalltalk Language, Java, VB, JavaScript, SQL, T-SQL,
+PLSQL, and CSS
+o Frameworks: ASP.NET MVC, Akka Stream, Play Framework, Flask, FastAPI, Telerik, Kendo UI and
+Devexpress
+o Content Management System: Umbraco and WordPress
+o IDE: Visual Studio, VS Code, PyCharm, and NetBeans
+● Database:
+o SQL Server, MySQL, MS SQL, Oracle, PostgreSQL, MongoDB, Hadoop, MariaDB, and Snowflake
+o ETL/ Data Integration: SSIS and FiveTran
+● Monitoring and Automation Tools
+o Grafana, Prometheus, Datadog, Splunk, New Relic, PagerDuty, and ServiceNow
+● DevOps and Cloud-based Platforms:
+o Cloud: Azure, AWS, and Google Cloud
+o CI/CD & Containerization: Docker, Kubernetes, Github, GitLab, Bitbucket, and Jenkins
+o SaaS Applications: Implemented, deployed, and supported vendor and custom SaaS platforms,
+including configuration, automation, and incident management
+● Reporting and Visualization:
+o Power BI, Tableau, Bokeh, Plotly, and Crystal Reports
+● Software Management and Development Practices:
+o Agile (SCRUM), Jira, Object-Oriented Programming, Design Patterns, and Design Data Structures
+Professional Experiences
+Improving | Toronto, ON
+Senior Consultant / Management Service Engineer | July 2024 – December 2025
+● Designed and implemented operational and incident-analysis dashboards in Tableau, transforming
+data from Fivetran into Snowflake, performing thorough data validation, modeling, and metric design
+to deliver actionable insights for decision-making.
+● Collaborated with data engineering teams to optimize end-to-end ETL workflows, ensuring structured,
+high-quality data that enhanced analytics readiness and improved downstream reporting efficiency.
+● Managed Services team and application support for Norwegian Cruise Line’s Proxima and EmbarkD
+applications, using incident/change tracking solutions such as ServiceNow and PagerDuty.
+Updated on December 9th, 2025 Chanhom C., MEng | Full CV Page 1
+Improving | Toronto, ON (Cont.)
+Senior Consultant / Management Service Engineer | July 2024 – December 2025
+● Designed and implemented proactive monitoring solutions using Grafana, Prometheus, and Kafka to
+enhance system reliability and minimize downtime.
+● Skilled in managing service changes, troubleshooting issues, and handling complex incidents.
+● Developed critical dashboards in Splunk and Datadog to track key performance metrics and surface
+early warning signals with mitigation strategies.
+● Monitored and analyzed key indicators such as Kafka Consumer Lag and ZooKeeper latency.
+● Investigated, researched, and optimized code-level issues and logging systems to improve
+performance and accelerate incident detection.
+● Collaborated with cross-functional teams to optimize service performance, ensure high availability, and
+strengthen cloud infrastructure resilience to meet clients’ needs.
+Yoppworks | Toronto, ON
+Senior Consultant / Python Automation QA Engineer | June 2022 – July 2024
+● Served as Senior Consultant on the Canada Post project, implementing robust testing strategies across
+multiple Kubernetes clusters.
+● Defined the scope of automated tests aligned with business requirements, fostering a collaborative
+team environment to meet sprint goals.
+● Developed and integrated CI/CD pipelines for Python-based automated tests.
+● Implemented assertions and validations for Kubernetes cluster responses via REST APIs in Python.
+● Performed release testing during bi-weekly continuous deployments, leveraging CI/CD pipelines and
+collaborating with team and business leaders using Agile tools.
+● Provided daily application support for vendor SaaS applications, including troubleshooting, issue
+resolution, and coordination with internal stakeholders and external vendors.
+YoppWorks Inc. | Toronto, ON
+Scala Developer | April 2021 – May 2022
+• Designed and implemented reactive microservices using Scala, Akka Streams, Play Framework, Kafka,
+and Cassandra, efficiently processing over 500k transactions daily.
+• Deployed and managed microservices on Kubernetes within Azure Cloud, ensuring high scalability and
+resilience.
+• Identified and resolved system performance bottlenecks, improving application reliability and enhancing
+end-user experience.
+iVedha Inc. | Toronto, ON
+Cost Optimization Analyst | May 2020 – March 2021
+● Analyzed data using Python to develop cost-saving strategies, resulting in a 15% reduction in cloud
+infrastructure costs.
+● Created visualizations with Bokeh and Plotly to provide insights for decision-makers.
+● Researches and conducts analysis seeking opportunities for improvement and provides
+recommendations and actionable insights to facilitate efficiency improvements.
+● Develop the health data centre by collecting Fast Healthcare Interoperability Resources (FHIR) from
+various data sources and using that data to conduct analyses to improve the system and enhance the
+service, assisting our customer (Innoneo Health System Inc).
+JLControl | Remote work, Bangkok, Thailand
+Senior Software Developer | January 2020 – August 2020
+● Successfully migrated a Credit System web application from C# to ASP.NET MVC, achieving a 60%
+improvement in performance.
+● Led the UI redesign using Umbraco, DevExpress MVC, and MSSQL, significantly enhancing usability
+and user experience.
+Updated on December 9th, 2025 Chanhom C., MEng | Full CV Page 2
+JLControl | Remote work, Bangkok, Thailand (Cont.)
+Senior Software Developer | January 2020 – August 2020
+● Implement Telerik reporting to generate professional, standardized formal reports.
+● Modernized data infrastructure by migrating multiple legacy databases to a cloud-based big data
+platform via ETL processes, improving scalability and accessibility.
+● Partnered with cross-functional teams to ensure the revamped UI met both functional and aesthetic
+requirements, aligning with business goals.
+● Led and supported technical and on-perm business projects within the Legal, Compliance, and
+Government Relations portfolio – a Thai government initiative.
+PranWorks Co., Ltd. | Chiang Mai, Thailand
+Senior Software Engineer Team Lead | January 2014 – February 2020
+● Designed and implemented software solutions adhering to Agile principles, enabling adaptability and
+efficiency in project delivery.
+● Built and maintained strong client relationships, working closely with Thai government stakeholders to
+gather requirements and ensure project success.
+● Provided strategic insights into product strengths and areas for improvement, driving informed decision-
+making and maximizing product value and workflow.
+● Led team sprints, conducted precise project estimations, and ensured timely delivery, consistently
+exceeding client expectations.
+● Oversaw the end-to-end software design and development lifecycle, focusing on delivering high-quality,
+client-centric solutions.
+● Expert in ASP.NET MVC, MSSQL, IIS, GitHub, Ajax, JSON, JavaScript, HTML, and CSS.
+● Developed business requirement documents and specifications, and provided technical and business
+project guidance for on-premises and SaaS applications with various partners.
+Guru-Service | Bangkok, Thailand
+Senior Software Engineer | January 2013 – January 2014
+● Played a key role in developing ASP.NET applications, utilizing technologies like Ajax, JavaScript,
+Oracle, and MSSQL to deliver high-performance, scalable solutions.
+● Developed ASP.NET applications leveraging Ajax, JavaScript, Oracle, and MSSQL to deliver scalable
+and high-performance functionality.
+● Designed and implemented flexible web services to integrate with multiple database systems according
+to user requirements.
+Material Automation | Bangkok, Thailand
+Programmer | September 2011 – January 2013
+● Customized and optimized ERP systems to align with client specifications, significantly improving
+operational efficiency and user satisfaction.
+● Led the development of Windows applications, providing tailored solutions to streamline and automate
+business processes.
+● Demonstrated proficiency in a wide array of technologies, including VB.NET, C#, VB6, Excel, CSV,
+Barcode, Smalltalk, Crystal Reports, Excel Macros, MSSQL, Oracle, and PL/SQL, ensuring flexibility
+and adaptability in project execution.
+Professional Certifications
+● Google Cloud Professional Data Engineer Certificate
+● Advanced C# Programming in .NET Core
+● IBM: Machine Learning with Python
+● Reactive Architecture: Introduction to Reactive System
+Updated on December 9th, 2025 Chanhom C., MEng | Full CV Page 3
+Professional Certifications (cont.)
+● Reactive Architecture: Domain Driven Design
+● Reactive Architecture: Building Scalable System
+● Reactive Architecture: Distributed Messaging Patterns
+● Reactive Architecture: CQRS & Event Sourcing
+● Certified Reactive Architect Exam v4
+● Lightbend Telemetry Installation - Level 1
+● Lightbend Scale Language - Professional
+● Lightbend Java Language Lambdas - Level 1
+● Lightbend Java Language Futures - Level 1
+● Lightbend Lagom for Java Hello World - Level 1
+● Lightbend Lagom for Java Hello World - Level 1
+● Lightbend Data Engineering Data Principles
+● Lightbend Data Engineering Cloudflow Principles
+● Lightbend Akka for Scala - Professional
+● Lightbend Akka Cluster - Fundamentals - Level 2
+● Lightbend Akka Cluster - Sharding (Scala)
+● Lightbend Akka Streams for Scala Professional - Level 2
+● MCSD: Web application
+● MS: Programming in HTML5 with JavaScript and CSS3
+● MCPS: Microsoft Certified Professional
+● MCSD: App Builder
+● MCSA: Web Applications (Charter)
+● Microsoft Applied Skills: Develop generative AI apps with Azure OpenAI and Semantic Kernel
+(working towards obtaining)
+Licenses
+• Microsoft License F791-9844 September 2016 to 2018
+• Microsoft License F791-7110 September 2016
+• Microsoft License F791-7105 September 2016
+• Microsoft License F815-4707 September 2016
+• Microsoft License F815-4708
+Education
+Master’s Degree (Database), Computer Engineering, Faculty of Engineering, Chiang Mai University, Thailand.
+Bachelor’s Degree, Computer Engineering, Faculty of Engineering, Chiang Mai University, Thailand.
+Scientific Presentations / Publications
+2009 – 2011
+2005 – 2009
+• Chanhom, K., & Natwichai, J. (2011). An efficient approach for data-duplication detection based on
+RDBMS. In 2011 Eighth International Joint Conference on Computer Science and Software
+Engineering (JCSSE) (pp. 325-330). IEEE.
+Updated on December 9th, 2025 Chanhom C., MEng | Full CV Page 4
