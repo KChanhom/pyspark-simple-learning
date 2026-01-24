@@ -14,37 +14,11 @@ def main() -> None:
         .option("inferSchema", True)
         .csv(str(RAW_DIR / "users.csv"))
     )
+ 
     orders = (
-        spark.range(10001, 10300)
-        .withColumn("user_id", sql_func.col("id"))
-        .withColumn("user_id", sql_func.lit(10001))
-        .withColumn("amount", sql_func.lit(100))
-        .withColumn("order_date", sql_func.lit("2026-01-01"))
-    )
-    # orders = (
-    #     spark.read.option("header", True)
-    #     .option("inferSchema", True)
-    #     .csv(str(RAW_DIR / "orders.csv"))
-    # )
-
-    days = sql_func.floor(sql_func.rand() * sql_func.lit(365)).cast("int")
-
-    orders = (
-        spark.range(10001, 10300)
-        .withColumn("user_id", (sql_func.col("id") % 50) + 1)
-        .withColumn("amount", (sql_func.rand() * sql_func.lit(300)).cast("decimal(10,2)"))
-        .withColumn("days", days)
-        .withColumn(
-            "created_at",
-            sql_func.date_add(sql_func.to_date(sql_func.lit("2025-01-01")), sql_func.col("days"))
-        )
-        .select(
-            sql_func.col("id").alias("order_id"),
-            "user_id",
-            "amount",
-            "created_at"
-        )
-        .alias("orders")
+        spark.read.option("header", True)
+        .option("inferSchema", True)
+        .csv(str(OUTPUT_DIR / "orders/part-*.csv"))
     )
 
     users.createOrReplaceTempView("users")
