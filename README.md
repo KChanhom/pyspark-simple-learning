@@ -1,124 +1,103 @@
 # pyspark-simple-learning
 
-โปรเจกต์ PySpark แบบ “เล็กและชัด” สำหรับฝึก Spark พื้นฐานบนเครื่อง (local mode) โดยเน้น 3 เรื่อง:
+This project is a compact, clear PySpark example for practicing Spark locally (local mode). It focuses on reading data (text/CSV) → transforming/cleaning → summarizing (group/join/agg) using the DataFrame API and Spark SQL.
 
-- **อ่านข้อมูล** (text/CSV) → **แปลง/ทำความสะอาด** → **สรุปผล** (group/join/agg)
-- **DataFrame API** และ **Spark SQL**
-- **เขียนผลลัพธ์** ออกไปเป็นไฟล์เพื่อเปิดดู/ตรวจสอบได้จริง
+This README provides detailed installation steps, sanity checks, how to run the demo jobs, expected outputs, system design description, and instructions for the architecture diagram.
 
-ในโปรเจกต์นี้มี **data ตัวอย่าง** และ **สคริปต์ตัวอย่าง 3 ตัว** รันได้ทันที:
+----
 
-- `src/jobs/wordcount.py`
-- `src/jobs/etl_users_orders.py`
-- `src/jobs/sql_demo.py`
+## Table of Contents
 
----
+- Requirements
+- Project structure
+- Installation and getting started (step-by-step)
+- Sanity checks and how to run the three demo scripts (with expected outputs)
+- Verifying outputs (checklist)
+- Clearing outputs and re-running
+- System design and execution flow
+- Diagram (SVG) and how to convert to PNG
+- Troubleshooting (common issues and fixes)
+- Next steps / exercises
 
-## สิ่งที่ต้องมี (สำคัญมาก)
+----
 
-### Python
+## Requirements
 
-- ใช้ **Python 3.9+** ได้ (เครื่องคุณรันได้ด้วย 3.9.6)
-- ถ้าคุณมี 3.10/3.11 ก็ใช้ได้เช่นกัน
+1) Python
 
-> หมายเหตุ: ถ้าเครื่องคุณไม่มีคำสั่ง `python` ให้ใช้ `python3` แทน (macOS พบได้บ่อย)
+- Python 3.9+ (3.10/3.11 are supported)
+- Use the `python` command if available; otherwise use `python3` (common on macOS)
 
-### Java (จำเป็นสำหรับ Spark)
+2) Java (required for Spark)
 
-PySpark ต้องมี Java เพื่อรัน Spark ฝั่ง JVM
+- PySpark runs on the JVM and requires Java installed
+- If you use Java 11, use PySpark 3.5.x (this project pins pyspark in requirements.txt as `pyspark>=3.5.0,<4.0`)
+- If you want to use PySpark 4.x, install Java 17 and update requirements accordingly
 
-- **ถ้าใช้ Java 11** → ควรใช้ **PySpark 3.5.x**
-- **ถ้าใช้ Java 17** → ใช้ได้ทั้ง **PySpark 3.5.x** และ **PySpark 4.x**
-
-โปรเจกต์นี้ตั้งใจให้ “รันได้ง่ายบนเครื่องที่มี Java 11” จึง pin ไว้ใน `requirements.txt` เป็น:
-
-- `pyspark>=3.5.0,<4.0`
-
-ตรวจสอบเวอร์ชัน Java:
+Check Java version:
 
 ```bash
 java -version
 ```
 
-ติดตั้ง Java (ตัวอย่าง macOS Homebrew):
+Example installation (macOS/Homebrew):
 
 ```bash
 brew install openjdk@11
-# หรือ
+# or
 brew install openjdk@17
 ```
 
-ตั้ง `JAVA_HOME` (เลือกเวอร์ชันที่คุณติดตั้ง):
+Set JAVA_HOME (macOS example):
 
 ```bash
 export JAVA_HOME=$(/usr/libexec/java_home -v 11)
-# หรือ
+# or
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 ```
 
----
+----
 
-## โครงสร้างโฟลเดอร์ (อธิบายละเอียด)
+## Project structure
 
-- `src/`
-  - `spark_session.py`: ตัวช่วยสร้าง `SparkSession` สำหรับ local
-  - `config.py`: path พื้นฐานของโปรเจกต์ (`data/raw`, `data/output`)
-  - `jobs/`: สคริปต์เดโมแต่ละงาน (รันด้วย `python -m ...`)
-- `data/raw/`
-  - `text.txt`: ข้อความสำหรับ wordcount
-  - `users.csv`, `orders.csv`: ข้อมูลตัวอย่างสำหรับ ETL/SQL
-- `data/output/`
-  - โฟลเดอร์ผลลัพธ์ที่ Spark เขียนออกมา
-  - มี `README.md` อธิบายไว้
+- src/
+  - spark_session.py: helper to create a SparkSession configured for local runs
+  - config.py: base paths and configuration (data/raw, data/output)
+  - jobs/: example jobs runnable with `python -m src.jobs.<module>`
+- data/raw/: sample input data
+  - text.txt: sample text for wordcount
+  - users.csv, orders.csv: sample data for ETL/SQL demos
+- data/output/: output folder written by the jobs
 
-> หมายเหตุ: เวลาสั่ง `df.write.csv("path")` Spark จะสร้าง “โฟลเดอร์” ชื่อ `path/` แล้วมีไฟล์ `part-*.csv` อยู่ข้างใน พร้อมไฟล์ `_SUCCESS` เพื่อบอกว่าเขียนเสร็จสมบูรณ์
+Note: Spark `df.write.csv("path")` creates a folder `path/` containing `part-*.csv` files and a `_SUCCESS` marker file when the write completes successfully.
 
----
+----
 
-## (สำหรับคนอยากรู้) โปรเจกต์นี้ถูก “สร้าง” ยังไง
+## Installation and getting started (step-by-step)
 
-คุณไม่จำเป็นต้องทำเอง แต่ถ้าจะฝึกสร้างใหม่จากศูนย์ แนวคิดคือ:
-
-1) สร้างโฟลเดอร์โปรเจกต์และโครงสร้าง `src/`, `data/raw/`, `data/output/`  
-2) ใส่ `requirements.txt` สำหรับ dependency  
-3) ใส่สคริปต์ตัวอย่างใน `src/jobs/`  
-4) ใส่ data ตัวอย่างลงใน `data/raw/`  
-5) เขียน `SparkSession` helper ให้ใช้งานซ้ำได้  
-
----
-
-## ติดตั้งและเริ่มต้นใช้งาน (แนะนำทำตามทีละบรรทัด)
-
-ไปที่โฟลเดอร์โปรเจกต์:
+1. Open a terminal and change to the project root:
 
 ```bash
 cd pyspark-simple-learning
 ```
 
-สร้าง virtual environment:
+2. Create and activate a virtual environment (recommended):
 
 ```bash
 python3 -m venv .venv
-```
-
-เปิดใช้งาน venv:
-
-```bash
 source .venv/bin/activate
 ```
 
-อัปเกรด pip และติดตั้ง dependency:
+(On Windows: `python -m venv .venv` then `\.venv\Scripts\Activate.ps1` or `\.venv\Scripts\activate`)
+
+3. Upgrade pip and install dependencies:
 
 ```bash
 pip install -U pip
 pip install -r requirements.txt
 ```
 
----
-
-## “รันทดสอบการติดตั้ง” (Sanity check)
-
-### 1) เช็คว่า Python/Java/พัสดุครบ
+4. Verify installation:
 
 ```bash
 python -V
@@ -126,44 +105,45 @@ java -version
 python -c "import pyspark; print('pyspark', pyspark.__version__)"
 ```
 
-สิ่งที่ควรเห็น:
+Expected:
+- Java 11 or 17
+- pyspark 3.5.x (as pinned)
 
-- `java -version` เป็น 11 หรือ 17
-- `pyspark` เป็น 3.5.x (เพราะเรา pin `<4.0`)
+----
 
-### 2) เช็คว่า SparkSession สร้างได้ (แบบสั้นที่สุด)
+## Sanity check (verify SparkSession)
+
+Quick test to ensure SparkSession can be created:
 
 ```bash
 python -c "from src.spark_session import get_spark; s=get_spark('smoke'); print(s.version); s.stop()"
 ```
 
-ถ้าตรงนี้ผ่าน แปลว่าสภาพแวดล้อมพร้อมแล้ว
+If the command prints a Spark version without errors, the environment is ready to run the demo jobs.
 
----
+----
 
-## รันเดโมทั้ง 3 ตัว (พร้อมคำอธิบาย + ผลลัพธ์ที่คาดหวัง)
+## Running the three demo jobs (what they do and expected output)
 
-> แนะนำรันจาก root ของโปรเจกต์ (`pyspark-simple-learning/`) และให้เปิด venv แล้ว
+Run from the project root with the virtual environment active.
 
-### 1) WordCount (DataFrame)
+1) WordCount (DataFrame API)
 
-รัน:
+Run:
 
 ```bash
 python -m src.jobs.wordcount
 ```
 
-ทำอะไรบ้าง:
+What it does:
+- Reads `data/raw/text.txt`
+- Lowercases text
+- Splits words using regex `\W+`
+- Explodes into one word per row
+- groupBy to count occurrences
+- Writes CSV output to `data/output/wordcount/`
 
-- อ่านไฟล์ `data/raw/text.txt`
-- ทำเป็นตัวพิมพ์เล็ก
-- split คำด้วย regex `\W+` (ตัดด้วยตัวที่ไม่ใช่ตัวอักษร/ตัวเลข)
-- explode เป็น 1 แถวต่อ 1 คำ
-- groupBy นับจำนวน
-- เขียนผลเป็น CSV ไปที่ `data/output/wordcount/`
-
-ผลลัพธ์ที่คาดหวังบนหน้าจอ (ตัวอย่างจาก data ชุดนี้):
-
+Expected console output (example):
 ```
 +----------+-----+
 |word      |count|
@@ -173,47 +153,41 @@ python -m src.jobs.wordcount
 |word      |3    |
 |for       |2    |
 |pyspark   |2    |
-... (คำอื่น ๆ) ...
+...       ...
 +----------+-----+
 ```
 
-ไฟล์ผลลัพธ์:
+Files produced:
+- data/output/wordcount/part-*.csv
+- data/output/wordcount/_SUCCESS
 
-- `data/output/wordcount/part-*.csv`
-- `data/output/wordcount/_SUCCESS`
-
-เปิดดูไฟล์ผลลัพธ์แบบง่าย (ตัวอย่างใช้ Python):
+Inspect results (example using pandas):
 
 ```bash
 python -c "import glob,pandas as pd; p=glob.glob('data/output/wordcount/part-*.csv')[0]; print(pd.read_csv(p).head(20))"
 ```
 
----
+----
 
-### 2) ETL: users + orders (join + aggregate)
+2) ETL: users + orders (join + aggregate)
 
-รัน:
+Run:
 
 ```bash
 python -m src.jobs.etl_users_orders
 ```
 
-ทำอะไรบ้าง:
+What it does:
+- Reads `data/raw/users.csv` and `data/raw/orders.csv` (header + inferSchema)
+- Cleans orders:
+  - cast `amount` to double (non-numeric values become null)
+  - parse `created_at` to timestamp
+  - filter out rows where `amount` is null
+- left join with `users` on `user_id`
+- groupBy to compute `order_count`, `total_amount`, `last_order_at`
+- Writes CSV to `data/output/users_orders_summary/`
 
-- อ่าน `data/raw/users.csv` และ `data/raw/orders.csv` (มี header และใช้ inferSchema)
-- ทำความสะอาด `orders`:
-  - cast `amount` เป็น double (แถวที่เป็น `N/A` จะกลายเป็น null)
-  - parse `created_at` เป็น timestamp
-  - กรองแถวที่ `amount` เป็น null ออก
-- join กับ `users` ด้วย `user_id` (แบบ `left`)
-- groupBy แล้วคำนวณ:
-  - `order_count`: จำนวนออเดอร์
-  - `total_amount`: ยอดรวม
-  - `last_order_at`: เวลาล่าสุด
-- เขียนผลเป็น CSV ไปที่ `data/output/users_orders_summary/`
-
-ผลลัพธ์ที่คาดหวังบนหน้าจอ (ตัวอย่างจาก data ชุดนี้):
-
+Expected console output (example):
 ```
 +-------+----+----------+-----------+------------+-------------------+
 |user_id|name|city      |order_count|total_amount|last_order_at      |
@@ -226,32 +200,28 @@ python -m src.jobs.etl_users_orders
 +-------+----+----------+-----------+------------+-------------------+
 ```
 
-เปิดดูไฟล์ผลลัพธ์:
+Inspect output:
 
 ```bash
 python -c "import glob,pandas as pd; p=glob.glob('data/output/users_orders_summary/part-*.csv')[0]; print(pd.read_csv(p))"
 ```
 
----
+----
 
-### 3) Spark SQL demo (temp view + SQL query)
+3) Spark SQL demo (temp views + SQL)
 
-รัน:
+Run:
 
 ```bash
 python -m src.jobs.sql_demo
 ```
 
-ทำอะไรบ้าง:
+What it does:
+- Reads `users.csv` and `orders.csv`
+- Creates temporary views `users` and `orders`
+- Runs a SQL query (JOIN + GROUP BY + ORDER BY) via `spark.sql(...)`
 
-- อ่าน `users.csv` และ `orders.csv`
-- สร้าง temp view:
-  - `users`
-  - `orders`
-- ใช้ `spark.sql(...)` เขียน SQL (JOIN + GROUP BY + ORDER BY)
-
-ผลลัพธ์ที่คาดหวังบนหน้าจอ (ตัวอย่าง):
-
+Expected console output (example):
 ```
 +-------+----+----------+-----------+------------+
 |user_id|name|city      |order_count|total_amount|
@@ -264,81 +234,89 @@ python -m src.jobs.sql_demo
 +-------+----+----------+-----------+------------+
 ```
 
-> หมายเหตุ: ตัวอย่าง SQL demo จะนับ `order_count` ด้วย `COUNT(DISTINCT o.order_id)` (รวมแถวที่ `amount` เป็น `N/A` ด้วย)  
-> ส่วน ETL demo จะ “ลบทิ้ง” แถว `amount` ที่ cast ไม่ได้ก่อน จึงอาจต่างกันได้ในบางเคส (ใน data ชุดนี้ `user_id=2` จะเห็น `order_count` ต่างกัน: SQL = 2, ETL = 1)
+Note: The SQL demo uses `COUNT(DISTINCT o.order_id)` which may differ from the ETL demo in cases where `amount` is `N/A` because the ETL demo filters out rows with non-numeric amounts.
 
----
+----
 
-## การ “รันทดสอบ” แบบตรวจผลลัพธ์จริง (เหมือน checklist)
+## Verifying outputs (checklist)
 
-หลังรันเดโม แนะนำตรวจว่า output ถูกสร้างจริง:
+After running the demos, verify outputs exist:
 
 ```bash
-python -c "import glob; assert glob.glob('data/output/wordcount/part-*.csv'); assert glob.glob('data/output/users_orders_summary/part-*.csv'); print('OK: outputs exist')"
+python -c "import glob; assert glob.glob('data/output/wordcount/part-*.csv'), 'wordcount output missing'; assert glob.glob('data/output/users_orders_summary/part-*.csv'), 'users_orders_summary output missing'; print('OK: outputs exist')"
 ```
 
-ถ้าอยากล้างผลลัพธ์แล้วรันใหม่:
+Clear outputs if you want to re-run from scratch:
 
 ```bash
 rm -rf data/output/wordcount data/output/users_orders_summary
 ```
 
----
+----
 
-## จุดที่โปรเจกต์นี้ตั้งค่าไว้ให้ “รันง่าย”
+## System design & execution flow
 
-ดูที่ `src/spark_session.py`:
+High-level flow when a job in `src/jobs/` runs:
 
-- รันแบบ local: `master("local[*]")` (ใช้ทุกคอร์)
-- ลดจำนวน shuffle partitions: `spark.sql.shuffle.partitions = 4` (เหมาะกับโปรเจกต์เล็ก)
-- ตั้ง timezone เป็น UTC เพื่อให้การแปลงเวลาคงที่
-- ที่สำคัญ: บังคับ driver เป็น localhost
-  - `spark.driver.bindAddress = 127.0.0.1`
-  - `spark.driver.host = 127.0.0.1`
+1. The Python job calls `get_spark()` from `src.spark_session` to create a configured SparkSession (entry point)
+2. The SparkSession communicates with the JVM via Py4J and launches a SparkContext (local mode)
+3. Spark reads data from `data/raw/` using the DataSource API into DataFrames
+4. Transformations are applied (withColumn, cast, filter, split, explode, groupBy, join)
+5. When `df.write...` is executed, Spark performs shuffles/aggregations as needed and writes outputs to `data/output/` as `part-*.csv`
+6. The job stops the SparkSession (`s.stop()`) when finished
 
-เหตุผลของ localhost config:
+Important notes:
+- Local runs use `master("local[*]")` and the repo reduces `spark.sql.shuffle.partitions` to a small number suitable for small local datasets
+- `spark.driver.bindAddress` and `spark.driver.host` are set to `127.0.0.1` to avoid UnresolvedAddress issues on some machines
+- Timezone handling: the project sets UTC to make timestamp conversions consistent
 
-- บางเครื่อง (โดยเฉพาะ macOS) อาจเจอ error ตอน Spark สร้าง SparkContext เช่น `UnresolvedAddressException` / ปัญหา hostname/IPv6  
-- การบังคับ bind/host เป็น `127.0.0.1` ช่วยให้ Spark เปิดพอร์ต local ได้แน่นอน
+----
 
----
+## Diagram (SVG located at `assets/architecture_diagram.svg`)
 
-## Troubleshooting (รวมปัญหาที่เจอบ่อย)
+The diagram illustrates components and data flow for local execution.
 
-### 1) `ModuleNotFoundError: No module named 'pyspark'`
+If you want to convert the SVG to PNG locally (ImageMagick or rsvg-convert):
 
-- ยังไม่ได้ติดตั้ง dependency หรือยังไม่ได้เปิด venv
-- แก้โดย:
-  - `source .venv/bin/activate`
-  - `pip install -r requirements.txt`
+- ImageMagick:
+```bash
+convert assets/architecture_diagram.svg assets/architecture_diagram.png
+```
+- rsvg-convert:
+```bash
+rsvg-convert -f png -o assets/architecture_diagram.png assets/architecture_diagram.svg
+```
 
-### 2) `JAVA_GATEWAY_EXITED` / `UnsupportedClassVersionError`
+----
 
-อาการ:
+## Troubleshooting (common issues)
 
-- ถ้าใช้ Spark 4 แต่ Java ต่ำเกินไป จะเจอ `UnsupportedClassVersionError`
+1) ModuleNotFoundError: No module named 'pyspark'
+- Cause: dependencies not installed or virtual environment not activated
+- Fix:
+  - source .venv/bin/activate
+  - pip install -r requirements.txt
 
-แนวทาง:
+2) JAVA_GATEWAY_EXITED / UnsupportedClassVersionError
+- Cause: Java version incompatible with the installed PySpark
+- Fix:
+  - Use Java 11 with PySpark 3.5.x
+  - Or install Java 17 and update PySpark to 4.x if you need Spark 4
 
-- ถ้าคุณมี **Java 11** ให้ใช้ **PySpark 3.5.x** (โปรเจกต์นี้ pin ให้แล้ว)
-- ถ้าคุณอยากใช้ **PySpark 4.x** ต้องอัปเกรดเป็น **Java 17** และปรับ `requirements.txt` เอา `<4.0` ออก
+3) UnresolvedAddressException when starting Spark
+- Cause: hostname or bind address issues
+- Fix:
+  - Check `src/spark_session.py` and ensure `spark.driver.bindAddress` and `spark.driver.host` are set to `127.0.0.1`
 
-### 3) `UnresolvedAddressException` ตอนเริ่ม Spark
+----
 
-- มักเกี่ยวกับ hostname/การ bind พอร์ต
-- โปรเจกต์นี้แก้ไว้แล้วด้วย `spark.driver.bindAddress/host = 127.0.0.1` ใน `src/spark_session.py`
+## Next steps / exercises
 
----
+- Add new columns with `withColumn` (e.g., bucket total_amount)
+- Filter for specific cities (e.g., `city='Bangkok'`)
+- Add `avg(amount)`, `min`, `max` to aggregations
+- Compare inner vs left joins and observe row counts
+- Change output format to Parquet and read back with `spark.read.parquet`
+- Refactor job logic into smaller functions and add assertions for row counts or totals
 
-## แนวทางฝึกต่อ (ไอเดียการบ้าน)
-
-ลองแก้/เพิ่มโจทย์ใน `src/jobs/`:
-
-- **เพิ่มคอลัมน์ใหม่** ด้วย `withColumn` (เช่น ทำ bucket ยอดเงิน)
-- **filter/where** (เช่น เอาเฉพาะ `city='Bangkok'`)
-- **groupBy().agg(...)** เพิ่มค่า `avg(amount)`, `min/max`
-- ทดลอง `join` แบบ `inner/left` แล้วเทียบจำนวนแถว
-- แยก logic เป็นฟังก์ชันย่อย และเขียน “assert” ตรวจผลลัพธ์ (เช่น row count, ค่า total)
-- เปลี่ยน output เป็น **Parquet** แล้วลองอ่านกลับ (`spark.read.parquet`)
-
-
+----
