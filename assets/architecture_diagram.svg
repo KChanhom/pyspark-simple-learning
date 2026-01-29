@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="420" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420">
+  <style>
+    .box { fill:#f8f9fa; stroke:#333; stroke-width:1.2; rx:6; }
+    .title { font: bold 14px sans-serif; fill:#111; }
+    .label { font: 12px sans-serif; fill:#111; }
+    .arrow { stroke:#333; stroke-width:1.4; fill:none; marker-end:url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+
+  <!-- User / Run -->
+  <rect class="box" x="30" y="30" width="160" height="70" />
+  <text class="title" x="50" y="55">User / Dev</text>
+  <text class="label" x="50" y="75">run: python -m src.jobs.*</text>
+
+  <!-- Python Job -->
+  <rect class="box" x="230" y="20" width="200" height="100" />
+  <text class="title" x="250" y="45">Python Job (src/jobs)</text>
+  <text class="label" x="250" y="65">uses DataFrame API / Spark SQL</text>
+  <text class="label" x="250" y="82">calls get_spark()</text>
+
+  <!-- SparkSession / Py4J -->
+  <rect class="box" x="470" y="20" width="200" height="100" />
+  <text class="title" x="490" y="45">SparkSession (PySpark)</text>
+  <text class="label" x="490" y="65">Py4J bridge → JVM</text>
+  <text class="label" x="490" y="82">master: local[*]</text>
+
+  <!-- Data Sources -->
+  <rect class="box" x="230" y="150" width="200" height="100" />
+  <text class="title" x="250" y="175">Data Sources</text>
+  <text class="label" x="250" y="195">data/raw/text.txt</text>
+  <text class="label" x="250" y="213">data/raw/users.csv, orders.csv</text>
+
+  <!-- Transformations -->
+  <rect class="box" x="470" y="150" width="200" height="100" />
+  <text class="title" x="490" y="175">Transformations</text>
+  <text class="label" x="490" y="195">filter / cast / split / join / agg</text>
+  <text class="label" x="490" y="213">write → data/output/</text>
+
+  <!-- Arrows -->
+  <path class="arrow" d="M190 65 L230 65" />
+  <path class="arrow" d="M430 65 L470 65" />
+  <path class="arrow" d="M330 120 L330 150" />
+  <path class="arrow" d="M430 200 L470 200" />
+  <path class="arrow" d="M670 120 L670 150" />
+
+  <!-- Output -->
+  <rect class="box" x="700" y="150" width="160" height="100" />
+  <text class="title" x="720" y="175">Output / Sink</text>
+  <text class="label" x="720" y="195">data/output/wordcount/</text>
+  <text class="label" x="720" y="213">data/output/users_orders_summary/</text>
+
+  <!-- JVM / Spark -->
+  <rect class="box" x="470" y="280" width="390" height="120" />
+  <text class="title" x="490" y="305">Spark (JVM) - local[*]</text>
+  <text class="label" x="490" y="325">Execution (tasks, shuffle, write)</text>
+  <text class="label" x="490" y="343">_SUCCESS / part-*.csv</text>
+
+  <path class="arrow" d="M570 220 L570 280" />
+  <path class="arrow" d="M780 250 L780 280" />
+</svg>
