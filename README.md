@@ -272,23 +272,6 @@ Important notes:
 
 ----
 
-## Diagram (SVG located at `assets/architecture_diagram.svg`)
-
-The diagram illustrates components and data flow for local execution.
-
-If you want to convert the SVG to PNG locally (ImageMagick or rsvg-convert):
-
-- ImageMagick:
-```bash
-convert assets/architecture_diagram.svg assets/architecture_diagram.png
-```
-- rsvg-convert:
-```bash
-rsvg-convert -f png -o assets/architecture_diagram.png assets/architecture_diagram.svg
-```
-
-----
-
 ## Troubleshooting (common issues)
 
 1) ModuleNotFoundError: No module named 'pyspark'
